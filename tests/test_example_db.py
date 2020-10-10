@@ -13,7 +13,7 @@ pytestmark = [pytest.mark.django_db]
 
 def test_database_connection():
     """
-    test connection travis, docker, etc 
+    test connection travis, docker, etc
     """
 
     count = User.objects.count()
