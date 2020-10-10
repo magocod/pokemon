@@ -9,7 +9,7 @@ Pokemon api
 ## third-party
 
 * Django-rest-framework -> https://www.django-rest-framework.org/
-* black -> https://black.readthedocs.io/en/stable/
+* black -> https://black.readthedocs.io/en/latest/
 * isort -> https://timothycrosley.github.io/isort/
 
 ## Tox env
@@ -20,45 +20,41 @@ Pokemon api
 ## Tests
 
 * Pytest -> https://docs.pytest.org/en/latest/
-* coverage -> https://coverage.readthedocs.io/en/coverage-5.0.3/
+* coverage -> https://coverage.readthedocs.io/en/latest/
 
 ## Instructions
 
-Create a virtual python environment and install libraries with pip
-
+1 - Create a virtual python environment and install libraries with pip
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/py37.txt
 ```
 
-Create all virtual environments (using tox)
+1.1 - Create all virtual environments (using tox)
 ```bash
 tox
 ```
 
-Migrate the database
-
+2 - Migrate the database
 ```bash
 python manage.py migrate
 ```
 
-run tests (verify successful installation)
+3 - Run tests (verify successful installation)
 ```bash
 pytest
 ```
 
-run tests (verify coverage)
+3.1 - Run tests (verify coverage)
 ```bash
-pytest --cov
+coverage run -m pytest
 ```
 
-Run development server
-
+4 - Run development server
 ```bash
 python manage.py runserver
 ```
 
-Enter the address
-
+5 - Enter the address
 ```bash
 http://localhost:8000
 ```
