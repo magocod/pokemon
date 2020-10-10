@@ -1,5 +1,4 @@
 import pytest
-
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
@@ -22,5 +21,7 @@ def admin_client():
 
     client = APIClient()
     token, _ = Token.objects.get_or_create(user__username="basic_user")
-    client.credentials(HTTP_AUTHORIZATION="Token " + token.key,)
+    client.credentials(
+        HTTP_AUTHORIZATION="Token " + token.key,
+    )
     return client
