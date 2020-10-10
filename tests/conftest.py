@@ -9,8 +9,8 @@ def django_db_setup(django_db_setup, django_db_blocker):
     populate the database
     """
     with django_db_blocker.unblock():
-        call_command("default_db")
-        call_command("chat_example_db")
+        # call_command("default_db")
+        pass
 
 
 @pytest.fixture
