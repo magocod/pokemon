@@ -13,8 +13,14 @@ class Command(BaseCommand):
         """
         ...
         """
+        print('init_users...')
+        call_command("init_users")
         
         # should be called in this order
+        print('load_regions...')
         call_command("load_regions")
+        print('load_pokemons...')
         call_command("load_pokemons")
+        print('load_areas...')
         call_command("load_areas")
+        print('...finish')

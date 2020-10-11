@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -77,3 +78,14 @@ class Sprite(models.Model):
     front_shiny = models.URLField(max_length=200, null=True, blank=True)
     front_shiny_female = models.URLField(max_length=200, null=True, blank=True)
     pokemon = models.ForeignKey(Pokemon, related_name="sprites", on_delete=models.CASCADE,)
+
+
+class Captured(models.Model):
+    """
+    ...
+    """
+
+    nick_name = models.CharField(max_length=80)
+    is_party_member = models.BooleanField()
+    pokemon = models.ForeignKey(Pokemon, related_name="specie", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
