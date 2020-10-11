@@ -1,11 +1,21 @@
 import json
-# import typing
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from apps.pokemons.models import Pokemon, Sprite, Ability, Move, Type, TypeStatistic, Statistic
+from apps.pokemons.models import (
+    Ability,
+    Move,
+    Pokemon,
+    Sprite,
+    Statistic,
+    Type,
+    TypeStatistic,
+)
+
+# import typing
+
 
 # class PokemonType(typing.TypedDict):
 #     """
@@ -36,9 +46,9 @@ class Command(BaseCommand):
         """
         ...
         """
-        
+
         with open(settings.BASE_DIR / "data/pokemons.json") as json_file:
-            data_pokemons = json.load(json_file)['data']
+            data_pokemons = json.load(json_file)["data"]
 
         # search pokemons metadata
         pokemon_abilities = set()
@@ -50,35 +60,26 @@ class Command(BaseCommand):
             pokemon_abilities.update(pokemon["abilities"])
             pokemon_moves.update(pokemon["moves"])
             pokemon_types.update(pokemon["types"])
-            # the latter consumes more resources, requires prior processing of the property
-            pokemon_stats.update([
-                status["name"] for status in pokemon["stats"]
-            ])
+            # the latter consumes more resources,
+            # requires prior processing of the property
+            pokemon_stats.update([status["name"] for status in pokemon["stats"]])
 
         # save meta data pokemons
         # note: depending on bd the id is not retrieved
 
         Ability.objects.bulk_create(
-            Ability(name=name)
-            for name in tuple(pokemon_abilities)
+            Ability(name=name) for name in tuple(pokemon_abilities)
         )
         query_abilities = Ability.objects.all()
 
-        Move.objects.bulk_create(
-            Move(name=name)
-            for name in tuple(pokemon_moves)
-        )
+        Move.objects.bulk_create(Move(name=name) for name in tuple(pokemon_moves))
         query_moves = Move.objects.all()
 
-        Type.objects.bulk_create(
-            Move(name=name)
-            for name in tuple(pokemon_types)
-        )
+        Type.objects.bulk_create(Move(name=name) for name in tuple(pokemon_types))
         query_types = Type.objects.all()
 
         TypeStatistic.objects.bulk_create(
-            Move(name=name)
-            for name in tuple(pokemon_stats)
+            Move(name=name) for name in tuple(pokemon_stats)
         )
         query_statistic = TypeStatistic.objects.all()
 
@@ -96,38 +97,39 @@ class Command(BaseCommand):
                 color=pokemon_data["color"],
                 flavor_text=pokemon_data["flavor_text"],
                 height=pokemon_data["height"],
-                weight=pokemon_data["weight"]
+                weight=pokemon_data["weight"],
             )
 
             # many to many relations
 
-            pokemon.abilities.add(*[
-                obj for obj in query_abilities
-                if obj.name in pokemon_data['abilities']
-            ])
+            pokemon.abilities.add(
+                *[
+                    obj
+                    for obj in query_abilities
+                    if obj.name in pokemon_data["abilities"]
+                ]
+            )
 
-            pokemon.moves.add(*[
-                obj for obj in query_moves
-                if obj.name in pokemon_data['moves']
-            ])
+            pokemon.moves.add(
+                *[obj for obj in query_moves if obj.name in pokemon_data["moves"]]
+            )
 
-            pokemon.types.add(*[
-                obj for obj in query_types
-                if obj.name in pokemon_data['types']
-            ])
+            pokemon.types.add(
+                *[obj for obj in query_types if obj.name in pokemon_data["types"]]
+            )
 
             # relations
 
             Sprite.objects.create(
                 pokemon_id=pokemon.id,
-                back_default = pokemon_data["sprites"]["back_default"],
-                back_female = pokemon_data["sprites"]["back_female"],
-                back_shiny = pokemon_data["sprites"]["back_shiny"],
-                back_shiny_female = pokemon_data["sprites"]["back_shiny_female"],
-                front_default = pokemon_data["sprites"]["front_default"],
-                front_female = pokemon_data["sprites"]["front_female"],
-                front_shiny = pokemon_data["sprites"]["front_shiny"],
-                front_shiny_female = pokemon_data["sprites"]["front_shiny_female"],
+                back_default=pokemon_data["sprites"]["back_default"],
+                back_female=pokemon_data["sprites"]["back_female"],
+                back_shiny=pokemon_data["sprites"]["back_shiny"],
+                back_shiny_female=pokemon_data["sprites"]["back_shiny_female"],
+                front_default=pokemon_data["sprites"]["front_default"],
+                front_female=pokemon_data["sprites"]["front_female"],
+                front_shiny=pokemon_data["sprites"]["front_shiny"],
+                front_shiny_female=pokemon_data["sprites"]["front_shiny_female"],
             )
 
             # do not verify that a property does not exist in defined types
@@ -135,7 +137,7 @@ class Command(BaseCommand):
                 Statistic(
                     pokemon_id=pokemon.id,
                     type_statistic_id=query_statistic.get(name=dict_st["name"]).id,
-                    value=dict_st["value"]
+                    value=dict_st["value"],
                 )
                 for dict_st in pokemon_data["stats"]
             )

@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     # local Django
     "apps.regions",
     "apps.pokemons",
-    "apps.users"
+    "apps.users",
 ]
 
 MIDDLEWARE = [

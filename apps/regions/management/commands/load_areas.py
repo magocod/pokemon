@@ -1,12 +1,12 @@
 import json
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.core.exceptions import ObjectDoesNotExist
 
-from apps.regions.models import Area, Location
 from apps.pokemons.models import Pokemon
+from apps.regions.models import Area, Location
 
 
 class Command(BaseCommand):
@@ -26,7 +26,7 @@ class Command(BaseCommand):
         # - loading all locations in memory
 
         with open(settings.BASE_DIR / "data/areas.json") as json_file:
-            data_areas = json.load(json_file)['data']
+            data_areas = json.load(json_file)["data"]
 
         query_locations = Location.objects.all()
         query_pokemons = Pokemon.objects.all()
@@ -39,11 +39,11 @@ class Command(BaseCommand):
         #     for area in data_areas
         # ])
         # query_areas = Area.objects.all()
-        
+
         for area_data in data_areas:
             area = Area.objects.create(
                 name=area_data["name"],
-                location_id=query_locations.get(name__iexact=area_data["location"]).id
+                location_id=query_locations.get(name__iexact=area_data["location"]).id,
             )
 
             pokemons = []

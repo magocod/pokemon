@@ -1,6 +1,5 @@
-from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-
+from django.core.management.base import BaseCommand
 
 USERS = (
     {
@@ -10,7 +9,7 @@ USERS = (
         "first_name": "pedro",
         "last_name": "...",
         "staff": True,
-        "super": True
+        "super": True,
     },
     {
         "username": "basic_user",
@@ -19,7 +18,7 @@ USERS = (
         "first_name": "user",
         "last_name": "Generic",
         "staff": False,
-        "super": False
+        "super": False,
     },
 )
 

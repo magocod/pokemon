@@ -59,9 +59,16 @@ class Statistic(models.Model):
 
     # speed up the saved stage, if there is time to go back and convert to the table
     # name = models.CharField(max_length=80)
-    type_statistic = models.ForeignKey(TypeStatistic, on_delete=models.CASCADE,)
+    type_statistic = models.ForeignKey(
+        TypeStatistic,
+        on_delete=models.CASCADE,
+    )
     value = models.IntegerField()
-    pokemon = models.ForeignKey(Pokemon, related_name="stats", on_delete=models.CASCADE,)
+    pokemon = models.ForeignKey(
+        Pokemon,
+        related_name="stats",
+        on_delete=models.CASCADE,
+    )
 
 
 class Sprite(models.Model):
@@ -77,7 +84,11 @@ class Sprite(models.Model):
     front_female = models.URLField(max_length=200, null=True, blank=True)
     front_shiny = models.URLField(max_length=200, null=True, blank=True)
     front_shiny_female = models.URLField(max_length=200, null=True, blank=True)
-    pokemon = models.ForeignKey(Pokemon, related_name="sprites", on_delete=models.CASCADE,)
+    pokemon = models.ForeignKey(
+        Pokemon,
+        related_name="sprites",
+        on_delete=models.CASCADE,
+    )
 
 
 class Captured(models.Model):
@@ -87,5 +98,7 @@ class Captured(models.Model):
 
     nick_name = models.CharField(max_length=80)
     is_party_member = models.BooleanField()
-    pokemon = models.ForeignKey(Pokemon, related_name="specie", on_delete=models.CASCADE)
+    pokemon = models.ForeignKey(
+        Pokemon, related_name="specie", on_delete=models.CASCADE
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
