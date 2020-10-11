@@ -47,6 +47,8 @@ pytest
 3.1 - Run tests (verify coverage)
 ```bash
 coverage run -m pytest
+coverage report
+coverage html
 ```
 
 4 - Run development server
