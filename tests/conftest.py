@@ -2,15 +2,17 @@ import pytest
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
+from django.core.management import call_command
+
 
 @pytest.fixture(scope="session")
 def django_db_setup(django_db_setup, django_db_blocker):
     """
     populate the database
     """
+
     with django_db_blocker.unblock():
-        # call_command("default_db")
-        pass
+        call_command("init_db")
 
 
 @pytest.fixture

@@ -1,5 +1,7 @@
 from django.db import models
 
+from apps.pokemons.models import Pokemon
+
 # Create your models here.
 
 
@@ -17,7 +19,7 @@ class Location(models.Model):
     """
 
     name = models.CharField(max_length=80, unique=True)
-    region = models.ForeignKey(Region, related_name="region", on_delete=models.CASCADE,)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE,)
 
 
 class Area(models.Model):
@@ -26,4 +28,5 @@ class Area(models.Model):
     """
 
     name = models.CharField(max_length=80, unique=True)
-    location = models.ForeignKey(Location, related_name="location", on_delete=models.CASCADE,)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,)
+    pokemons = models.ManyToManyField(Pokemon)

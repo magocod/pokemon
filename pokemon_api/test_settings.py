@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # local Django
-    # ...
+    "apps.regions",
+    "apps.pokemons",
+    "apps.users"
 ]
 
 MIDDLEWARE = [
@@ -92,6 +94,7 @@ DATABASES = {
     # },
     "default": {
         "ENGINE": "django.db.backends.postgresql",
+        # "ENGINE": "django.db.backends.mysql",
         "NAME": config["DB"]["NAME"],
         "USER": config["DB"]["USER"],
         "PASSWORD": config["DB"]["PASSWORD"],

@@ -22,12 +22,14 @@ class Command(BaseCommand):
         with open(settings.BASE_DIR / "data/regions.json") as json_file:
             data_regions = json.load(json_file)['data']
 
-        query_regions = Region.objects.bulk_create([
+        # note: depending on bd the id is not retrieved
+        Region.objects.bulk_create([
             Region(
                 name=region["name"]
             )
             for region in data_regions
         ])
+        query_region = Region.objects.all()
          
 
         total_locations: int = 0 # json_file
@@ -38,8 +40,8 @@ class Command(BaseCommand):
             data_locations = json.load(json_file)['data']
             total_locations = len(data_locations)
 
-        for region in query_regions:
-            region_locations = [
+        for region in query_region:
+            list_locations = [
                 Location(
                     name=location["name"],
                     region_id=region.id
@@ -48,8 +50,8 @@ class Command(BaseCommand):
                 if location["region"] == region.name
             ]
 
-            # instances_to_save = len(region_locations)
-            Location.objects.bulk_create(region_locations)
+            # instances_to_save = len(list_locations)
+            Location.objects.bulk_create(list_locations)
 
         # show warning in case of saving more or missing items
         # location_exact_amount = total_locations == Location.objects.count()
