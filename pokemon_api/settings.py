@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 config = configparser.ConfigParser()
-config.read(BASE_DIR / "test_settings.ini")
+config.read(BASE_DIR / "settings.ini")
 # print(config["APP"].getboolean("DEBUG"))
 # print(config["CORS"]["ORIGIN_WHITELIST"].split())
 # print(config["DB"]["PORT"])

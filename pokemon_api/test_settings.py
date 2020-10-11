@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 config = configparser.ConfigParser()
-config.read(BASE_DIR / "settings.ini")
+config.read(BASE_DIR / "test_settings.ini")
 
 
 # Quick-start development settings - unsuitable for production

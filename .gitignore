@@ -11,3 +11,6 @@ htmlcov
 *.sqlite3
 
 settings.ini
+
+# editro
+.idea
