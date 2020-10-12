@@ -109,3 +109,14 @@ class Captured(models.Model):
     is_party_member = models.BooleanField()
     specie = models.ForeignKey(Specie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @staticmethod
+    def active_member_limit() -> int:
+        """
+        returns the active member limit,
+        this value can be obtained from env, db, etc.
+
+        Returns:
+            number -- [description]
+        """
+        return 6

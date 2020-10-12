@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.pokemons.models import Move, NameStatistic, Specie, Sprite, Statistic
+from apps.pokemons.models import Move, NameStatistic, Specie, Sprite, Statistic, Captured
 
 
 class NameStatisticSerializer(serializers.ModelSerializer):
@@ -86,4 +86,93 @@ class SpecieSerializer(serializers.ModelSerializer):
             "moves",
             "abilities",
             "types",
+        )
+
+
+class CapturedBasicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Captured
+        fields = (
+            "id",
+            "nick_name",
+            "is_party_member",
+            "specie"
+        )
+
+
+class CapturedEditSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Captured
+        fields = (
+            "nick_name",
+        )
+
+    def update(self, instance, validated_data):
+        """
+        ...
+        """
+
+        instance.nick_name = validated_data.get('nick_name', instance.nick_name)
+        instance.save()
+        return CapturedBasicSerializer(instance).data
+
+
+class CapturedCreateSerializer(serializers.Serializer):
+    """
+    create by checking the limit number
+    of active members per user
+    """
+
+    nick_name = serializers.CharField(max_length=80)
+    is_party_member = serializers.BooleanField()
+    specie = serializers.IntegerField()
+
+    def validate_specie(self, value):
+        """
+        ...
+        """
+        try:
+            Specie.objects.get(pk=value)
+            return value
+        except Specie.DoesNotExist:
+            raise serializers.ValidationError("species does not exist")
+
+    def create(self, validated_data):
+        user =  self.context['request'].user
+
+        instance = Captured(
+            nick_name=validated_data["nick_name"],
+            is_party_member=validated_data["is_party_member"],
+            specie_id=validated_data["specie"],
+            user_id=user.id
+        )
+
+        if validated_data["is_party_member"]:
+            party_member_count = Captured.objects.filter(
+                is_party_member=True,
+                user_id=user.id
+            ).count()
+            # print(party_member_count)
+
+            if party_member_count >= Captured.active_member_limit():
+                instance.is_party_member = False
+
+        instance.save()
+
+        return CapturedBasicSerializer(instance).data
+
+
+class CapturedSerializer(serializers.ModelSerializer):
+
+    specie = SpecieBasicSerializer(many=False)
+
+    class Meta:
+        model = Captured
+        fields = (
+            "id",
+            "nick_name",
+            "is_party_member",
+            "specie"
         )

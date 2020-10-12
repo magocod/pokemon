@@ -13,7 +13,7 @@ from .serializers import (
 )
 
 # second time here, if there is a possibility
-# (motivation, time, etc.) to switch to generic views
+# to switch to generic views
 
 
 class RegionList(APIView):

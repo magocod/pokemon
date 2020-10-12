@@ -1,11 +1,21 @@
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.http import Http404
 
-from .models import Specie
-from .serializers import SpecieSerializer
+from .models import Specie, Captured
+from .serializers import (
+    SpecieSerializer,
+    CapturedCreateSerializer,
+    CapturedSerializer,
+    CapturedEditSerializer
+)
+from .exceptions import PokemonIsNotTheUser
+
+# second time here, if there is a possibility
+# to switch to generic views
 
 
 class SpecieDetail(APIView):
@@ -22,4 +32,87 @@ class SpecieDetail(APIView):
     def get(self, request, pk, format=None):
         specie = self.get_object(pk)
         serializer = SpecieSerializer(specie)
+        return Response(serializer.data)
+
+
+class CapturedList(APIView):
+    """
+    - List all user pokemons (all)
+    - create (max 6 active)
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        queryset = Captured.objects.filter(user_id=request.user.id)
+        serializer = CapturedSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CapturedCreateSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            captured_serialized = serializer.save()
+            return Response(captured_serialized, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CapturedDetail(APIView):
+    """
+    - update (only nick_name)
+    - delete
+
+    Note: instance -> Captured model
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self, pk, user_id):
+        try:
+            instance = Captured.objects.get(pk=pk)
+        except Captured.DoesNotExist:
+            raise Http404
+
+        if instance.user_id != user_id:
+            raise PokemonIsNotTheUser
+
+        return instance
+
+    def put(self, request, pk, format=None):
+        instance = self.get_object(pk, request.user.id)
+        serializer = CapturedEditSerializer(instance, data=request.data)
+        if serializer.is_valid():
+            result = serializer.save()
+            return Response(result)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, pk, format=None):
+        """
+        repeated code
+        """
+        instance = self.get_object(pk, request.user.id)
+        serializer = CapturedEditSerializer(instance, data=request.data)
+        if serializer.is_valid():
+            result = serializer.save()
+            return Response(result)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk, request.user.id)
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CapturedParty(APIView):
+    """
+    List all user pokemons party 
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        queryset = Captured.objects.filter(
+            is_party_member=True,
+            user_id=request.user.id
+        )
+        serializer = CapturedSerializer(queryset, many=True)
         return Response(serializer.data)
