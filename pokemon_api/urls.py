@@ -24,11 +24,11 @@ from apps.users import views as users_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login/", views.obtain_auth_token),
-    path("logout/", users_views.Logout.as_view()),
+    path("login/", views.obtain_auth_token, name="api_login"),
+    path("logout/", users_views.Logout.as_view(), name="api_logout"),
     path("pokemons/", include(pokemons_urls)),
-    path("regions/", regions_views.RegionList.as_view()),
-    path("regions/<int:pk>/", regions_views.RegionDetail.as_view()),
-    path("locations/<int:pk>/", regions_views.LocationDetail.as_view()),
-    path("areas/<int:pk>/", regions_views.AreaDetail.as_view()),
+    path("regions/", regions_views.RegionList.as_view(), name="regions_list"),
+    path("regions/<int:pk>/", regions_views.RegionDetail.as_view() , name="region_detail"),
+    path("locations/<int:pk>/", regions_views.LocationDetail.as_view(), name="location_detail"),
+    path("areas/<int:pk>/", regions_views.AreaDetail.as_view(), name="area_detail"),
 ]
