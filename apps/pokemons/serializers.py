@@ -176,3 +176,32 @@ class CapturedSerializer(serializers.ModelSerializer):
             "is_party_member",
             "specie"
         )
+
+
+def validate_specie_exists(value):
+    """
+
+    Arguments:
+        value {str | int} -- [description]
+    
+    Raises:
+        ValidationError -- [description]
+    """
+    try:
+        Specie.objects.get(pk=value)
+        return value
+    except Specie.DoesNotExist:
+        raise serializers.ValidationError("species does not exist")
+
+
+class SwapPartyMemberSerializer(serializers.Serializer):
+    """
+    trade, add, or remove a user's active Pokémon
+    """
+
+    entering_the_party = serializers.IntegerField(validators=[validate_specie_exists]) 
+    leaving_the_party = serializers.IntegerField(validators=[validate_specie_exists])
+
+    def create(self, validated_data):
+        print(validated_data)
+        return validated_data

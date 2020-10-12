@@ -7,4 +7,5 @@ urlpatterns = [
     path("own/", views.CapturedList.as_view()),
     path("own/<int:pk>/", views.CapturedDetail.as_view()),
     path("own/party/", views.CapturedParty.as_view()),
+    path("own/swap/", views.SwapPartyMember.as_view())
 ]

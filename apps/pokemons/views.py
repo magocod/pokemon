@@ -10,7 +10,8 @@ from .serializers import (
     SpecieSerializer,
     CapturedCreateSerializer,
     CapturedSerializer,
-    CapturedEditSerializer
+    CapturedEditSerializer,
+    SwapPartyMemberSerializer
 )
 from .exceptions import PokemonIsNotTheUser
 
@@ -116,3 +117,18 @@ class CapturedParty(APIView):
         )
         serializer = CapturedSerializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class SwapPartyMember(APIView):
+    """
+    trade, add, or remove a user's active Pokémon
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        serializer = SwapPartyMemberSerializer(data=request.data)
+        if serializer.is_valid():
+            result = serializer.save()
+            return Response(result)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
