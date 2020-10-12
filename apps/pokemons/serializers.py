@@ -1,25 +1,15 @@
 from rest_framework import serializers
 
-from apps.pokemons.models import (
-    Ability,
-    Move,
-    Specie,
-    Sprite,
-    Statistic,
-    Type,
-    NameStatistic,
-)
+from apps.pokemons.models import Move, NameStatistic, Specie, Sprite, Statistic
 
 
 class NameStatisticSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = NameStatistic
-        fields = ['name']
+        fields = ["name"]
 
 
 class NameStatisticField(serializers.RelatedField):
-
     def to_representation(self, value):
         return value.name
 
@@ -30,11 +20,10 @@ class StatisticSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Statistic
-        fields = ['name', 'value']
+        fields = ["name", "value"]
 
 
 class SpriteSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Sprite
         fields = [
@@ -45,15 +34,14 @@ class SpriteSerializer(serializers.ModelSerializer):
             "front_default",
             "front_female",
             "front_shiny",
-            "front_shiny_female"
+            "front_shiny_female",
         ]
 
 
 class MoveSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Move
-        fields = ['name']
+        fields = ["name"]
 
 
 class SpecieBasicSerializer(serializers.ModelSerializer):
@@ -86,17 +74,16 @@ class SpecieSerializer(serializers.ModelSerializer):
         model = Specie
         fields = (
             "id",
-      		"capture_rate",
-		    "color",
-		    "flavor_text",
-		    "height",
-		    "name",
-		    "weight",
+            "capture_rate",
+            "color",
+            "flavor_text",
+            "height",
+            "name",
+            "weight",
             # relations
             "stats",
             "sprites",
             "moves",
             "abilities",
-            "types"
+            "types",
         )
-

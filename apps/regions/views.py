@@ -1,12 +1,16 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from django.http import Http404
 
-from .models import Region, Location, Area
-from .serializers import RegionSerializer, RegionDetailSerializer, LocationDetailSerializer, AreaDetailSerializer
-
+from .models import Area, Location, Region
+from .serializers import (
+    AreaDetailSerializer,
+    LocationDetailSerializer,
+    RegionDetailSerializer,
+    RegionSerializer,
+)
 
 # second time here, if there is a possibility
 # (motivation, time, etc.) to switch to generic views
@@ -72,4 +76,3 @@ class AreaDetail(APIView):
         area = self.get_object(pk)
         serializer = AreaDetailSerializer(area)
         return Response(serializer.data)
-

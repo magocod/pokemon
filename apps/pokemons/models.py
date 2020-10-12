@@ -14,6 +14,7 @@ class Ability(models.Model):
     def __str__(self):
         return self.name
 
+
 class Move(models.Model):
     """
     ...
@@ -106,7 +107,5 @@ class Captured(models.Model):
 
     nick_name = models.CharField(max_length=80)
     is_party_member = models.BooleanField()
-    specie = models.ForeignKey(
-        Specie, on_delete=models.CASCADE
-    )
+    specie = models.ForeignKey(Specie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

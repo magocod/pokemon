@@ -7,11 +7,11 @@ from django.db import transaction
 from apps.pokemons.models import (
     Ability,
     Move,
+    NameStatistic,
     Specie,
     Sprite,
     Statistic,
     Type,
-    NameStatistic,
 )
 
 # import typing
@@ -104,7 +104,8 @@ class Command(BaseCommand):
 
             pokemon.abilities.add(
                 *[
-                    obj for obj in query_abilities
+                    obj
+                    for obj in query_abilities
                     if obj.name in pokemon_data["abilities"]
                 ]
             )

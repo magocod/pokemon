@@ -3,11 +3,11 @@ from django.contrib import admin
 from apps.pokemons.models import (
     Ability,
     Move,
+    NameStatistic,
     Specie,
     Sprite,
     Statistic,
     Type,
-    NameStatistic,
 )
 
 # Register your models here.

@@ -1,11 +1,11 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from django.http import Http404
 
 from .models import Specie
 from .serializers import SpecieSerializer
-
-from django.http import Http404
 
 
 class SpecieDetail(APIView):
