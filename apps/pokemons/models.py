@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+# Repeated code in models, fix once API tests are done
 
 
 class Ability(models.Model):
@@ -11,6 +11,8 @@ class Ability(models.Model):
 
     name = models.CharField(max_length=80, unique=True)
 
+    def __str__(self):
+        return self.name
 
 class Move(models.Model):
     """
@@ -18,6 +20,9 @@ class Move(models.Model):
     """
 
     name = models.CharField(max_length=80, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Type(models.Model):
@@ -27,16 +32,11 @@ class Type(models.Model):
 
     name = models.CharField(max_length=80, unique=True)
 
-
-class TypeStatistic(models.Model):
-    """
-    ...
-    """
-
-    name = models.CharField(max_length=80, unique=True)
+    def __str__(self):
+        return self.name
 
 
-class Pokemon(models.Model):
+class Specie(models.Model):
     """
     ...
     """
@@ -52,6 +52,14 @@ class Pokemon(models.Model):
     types = models.ManyToManyField(Type)
 
 
+class NameStatistic(models.Model):
+    """
+    ...
+    """
+
+    name = models.CharField(max_length=80, unique=True)
+
+
 class Statistic(models.Model):
     """
     ...
@@ -59,13 +67,13 @@ class Statistic(models.Model):
 
     # speed up the saved stage, if there is time to go back and convert to the table
     # name = models.CharField(max_length=80)
-    type_statistic = models.ForeignKey(
-        TypeStatistic,
+    name = models.ForeignKey(
+        NameStatistic,
         on_delete=models.CASCADE,
     )
     value = models.IntegerField()
-    pokemon = models.ForeignKey(
-        Pokemon,
+    specie = models.ForeignKey(
+        Specie,
         related_name="stats",
         on_delete=models.CASCADE,
     )
@@ -84,8 +92,8 @@ class Sprite(models.Model):
     front_female = models.URLField(max_length=200, null=True, blank=True)
     front_shiny = models.URLField(max_length=200, null=True, blank=True)
     front_shiny_female = models.URLField(max_length=200, null=True, blank=True)
-    pokemon = models.ForeignKey(
-        Pokemon,
+    specie = models.OneToOneField(
+        Specie,
         related_name="sprites",
         on_delete=models.CASCADE,
     )
@@ -98,7 +106,7 @@ class Captured(models.Model):
 
     nick_name = models.CharField(max_length=80)
     is_party_member = models.BooleanField()
-    pokemon = models.ForeignKey(
-        Pokemon, related_name="specie", on_delete=models.CASCADE
+    specie = models.ForeignKey(
+        Specie, on_delete=models.CASCADE
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)

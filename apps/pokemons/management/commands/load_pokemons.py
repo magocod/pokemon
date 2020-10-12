@@ -7,11 +7,11 @@ from django.db import transaction
 from apps.pokemons.models import (
     Ability,
     Move,
-    Pokemon,
+    Specie,
     Sprite,
     Statistic,
     Type,
-    TypeStatistic,
+    NameStatistic,
 )
 
 # import typing
@@ -78,10 +78,10 @@ class Command(BaseCommand):
         Type.objects.bulk_create(Move(name=name) for name in tuple(pokemon_types))
         query_types = Type.objects.all()
 
-        TypeStatistic.objects.bulk_create(
+        NameStatistic.objects.bulk_create(
             Move(name=name) for name in tuple(pokemon_stats)
         )
-        query_statistic = TypeStatistic.objects.all()
+        query_statistic = NameStatistic.objects.all()
 
         # fix later, so many trips to the bd
         for pokemon_data in data_pokemons:
@@ -91,7 +91,7 @@ class Command(BaseCommand):
             # print(pokemon_data["name"].encode('utf-8'))
             # print(pokemon_data["flavor_text"].encode('utf-8'))
 
-            pokemon = Pokemon.objects.create(
+            pokemon = Specie.objects.create(
                 name=pokemon_data["name"],
                 capture_rate=pokemon_data["capture_rate"],
                 color=pokemon_data["color"],
@@ -104,8 +104,7 @@ class Command(BaseCommand):
 
             pokemon.abilities.add(
                 *[
-                    obj
-                    for obj in query_abilities
+                    obj for obj in query_abilities
                     if obj.name in pokemon_data["abilities"]
                 ]
             )
@@ -121,7 +120,7 @@ class Command(BaseCommand):
             # relations
 
             Sprite.objects.create(
-                pokemon_id=pokemon.id,
+                specie_id=pokemon.id,
                 back_default=pokemon_data["sprites"]["back_default"],
                 back_female=pokemon_data["sprites"]["back_female"],
                 back_shiny=pokemon_data["sprites"]["back_shiny"],
@@ -135,8 +134,8 @@ class Command(BaseCommand):
             # do not verify that a property does not exist in defined types
             Statistic.objects.bulk_create(
                 Statistic(
-                    pokemon_id=pokemon.id,
-                    type_statistic_id=query_statistic.get(name=dict_st["name"]).id,
+                    specie_id=pokemon.id,
+                    name_id=query_statistic.get(name=dict_st["name"]).id,
                     value=dict_st["value"],
                 )
                 for dict_st in pokemon_data["stats"]

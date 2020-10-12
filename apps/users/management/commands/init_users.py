@@ -5,7 +5,7 @@ USERS = (
     {
         "username": "pedro",
         "email": "admin@django.com",
-        "password": "123",
+        "password": "strong_password",
         "first_name": "pedro",
         "last_name": "...",
         "staff": True,

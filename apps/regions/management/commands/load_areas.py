@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from apps.pokemons.models import Pokemon
+from apps.pokemons.models import Specie
 from apps.regions.models import Area, Location
 
 
@@ -29,7 +29,7 @@ class Command(BaseCommand):
             data_areas = json.load(json_file)["data"]
 
         query_locations = Location.objects.all()
-        query_pokemons = Pokemon.objects.all()
+        query_pokemons = Specie.objects.all()
 
         # Area.objects.bulk_create([
         #     Area(

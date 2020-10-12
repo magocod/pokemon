@@ -4,7 +4,7 @@ import pytest
 
 from django.conf import settings
 
-from apps.pokemons.models import Pokemon
+from apps.pokemons.models import Specie
 from apps.regions.models import Area, Location, Region
 
 pytestmark = [pytest.mark.django_db, pytest.mark.database]
@@ -27,8 +27,8 @@ def test_database_connection():
 
     with open(settings.BASE_DIR / "data/pokemons.json") as json_file:
         total_expected = len(json.load(json_file)["data"])
-        # print(Pokemon.objects.count())
-        assert total_expected == Pokemon.objects.count()
+        # print(Specie.objects.count())
+        assert total_expected == Specie.objects.count()
 
     with open(settings.BASE_DIR / "data/regions.json") as json_file:
         total_expected = len(json.load(json_file)["data"])
