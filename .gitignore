@@ -11,7 +11,7 @@ htmlcov
 *.sqlite3
 
 # upload in repository, for testing in travis cl
-settings.ini
+# settings.ini
 
 # editro
 .idea
