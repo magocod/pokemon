@@ -11,14 +11,13 @@ import pytest
 from django.urls import reverse
 
 from apps.regions.models import Region
-from apps.regions.serializers import RegionSerializer, RegionDetailSerializer
-
+from apps.regions.serializers import RegionDetailSerializer, RegionSerializer
 
 pytestmark = [pytest.mark.django_db, pytest.mark.app_regions, pytest.mark.regions]
 
 
 def test_list_all_regions(api_client):
-    url = reverse('regions_list')
+    url = reverse("regions_list")
     serializer = RegionSerializer(Region.objects.all(), many=True)
     response = api_client.get(url)
 

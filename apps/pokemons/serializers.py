@@ -1,6 +1,14 @@
 from rest_framework import serializers
 
-from apps.pokemons.models import Move, NameStatistic, Specie, Sprite, Statistic, Captured
+from apps.pokemons.models import (
+    Captured,
+    Move,
+    NameStatistic,
+    Specie,
+    Sprite,
+    Statistic,
+)
+
 from .exceptions import PokemonIsNotTheUser
 
 
@@ -91,31 +99,22 @@ class SpecieSerializer(serializers.ModelSerializer):
 
 
 class CapturedBasicSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Captured
-        fields = (
-            "id",
-            "nick_name",
-            "is_party_member",
-            "specie"
-        )
+        fields = ("id", "nick_name", "is_party_member", "specie")
 
 
 class CapturedEditSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Captured
-        fields = (
-            "nick_name",
-        )
+        fields = ("nick_name",)
 
     def update(self, instance, validated_data):
         """
         ...
         """
 
-        instance.nick_name = validated_data.get('nick_name', instance.nick_name)
+        instance.nick_name = validated_data.get("nick_name", instance.nick_name)
         instance.save()
         return CapturedBasicSerializer(instance).data
 
@@ -141,19 +140,18 @@ class CapturedCreateSerializer(serializers.Serializer):
             raise serializers.ValidationError("species does not exist")
 
     def create(self, validated_data):
-        user =  self.context['request'].user
+        user = self.context["request"].user
 
         instance = Captured(
             nick_name=validated_data["nick_name"],
             is_party_member=validated_data["is_party_member"],
             specie_id=validated_data["specie"],
-            user_id=user.id
+            user_id=user.id,
         )
 
         if validated_data["is_party_member"]:
             party_member_count = Captured.objects.filter(
-                is_party_member=True,
-                user_id=user.id
+                is_party_member=True, user_id=user.id
             ).count()
             # print(party_member_count)
 
@@ -171,12 +169,7 @@ class CapturedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Captured
-        fields = (
-            "id",
-            "nick_name",
-            "is_party_member",
-            "specie"
-        )
+        fields = ("id", "nick_name", "is_party_member", "specie")
 
 
 class SwapPartyMemberSerializer(serializers.Serializer):
@@ -184,7 +177,7 @@ class SwapPartyMemberSerializer(serializers.Serializer):
     trade, add, or remove a user's active Pokémon
     """
 
-    entering_the_party = serializers.IntegerField() 
+    entering_the_party = serializers.IntegerField()
     leaving_the_party = serializers.IntegerField()
 
     # def validate_entering_the_party(self, value):
@@ -192,7 +185,7 @@ class SwapPartyMemberSerializer(serializers.Serializer):
 
     #     Arguments:
     #         value {str | int} -- [description]
-        
+
     #     Raises:
     #         ValidationError -- [description]
     #     """
@@ -207,13 +200,13 @@ class SwapPartyMemberSerializer(serializers.Serializer):
 
     #     Arguments:
     #         value {str | int} -- [description]
-        
+
     #     Raises:
     #         ValidationError -- [description]
     #     """
     #     try:
     #         captured = Captured.objects.get(pk=value)
-    #         if captured 
+    #         if captured
     #         return value
     #     except Captured.DoesNotExist:
     #         raise serializers.ValidationError("species does not exist")

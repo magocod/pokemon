@@ -5,15 +5,15 @@ from rest_framework.views import APIView
 
 from django.http import Http404
 
-from .models import Specie, Captured
-from .serializers import (
-    SpecieSerializer,
-    CapturedCreateSerializer,
-    CapturedSerializer,
-    CapturedEditSerializer,
-    SwapPartyMemberSerializer
-)
 from .exceptions import PokemonIsNotTheUser
+from .models import Captured, Specie
+from .serializers import (
+    CapturedCreateSerializer,
+    CapturedEditSerializer,
+    CapturedSerializer,
+    SpecieSerializer,
+    SwapPartyMemberSerializer,
+)
 
 # second time here, if there is a possibility
 # to switch to generic views
@@ -50,7 +50,9 @@ class CapturedList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = CapturedCreateSerializer(data=request.data, context={'request': request})
+        serializer = CapturedCreateSerializer(
+            data=request.data, context={"request": request}
+        )
         if serializer.is_valid():
             captured_serialized = serializer.save()
             return Response(captured_serialized, status=status.HTTP_201_CREATED)
@@ -105,15 +107,14 @@ class CapturedDetail(APIView):
 
 class CapturedParty(APIView):
     """
-    List all user pokemons party 
+    List all user pokemons party
     """
 
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         queryset = Captured.objects.filter(
-            is_party_member=True,
-            user_id=request.user.id
+            is_party_member=True, user_id=request.user.id
         )
         serializer = CapturedSerializer(queryset, many=True)
         return Response(serializer.data)

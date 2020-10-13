@@ -15,7 +15,6 @@ import pytest
 from apps.regions.models import Location
 from apps.regions.serializers import LocationDetailSerializer
 
-
 pytestmark = [pytest.mark.django_db, pytest.mark.app_regions, pytest.mark.locations]
 
 

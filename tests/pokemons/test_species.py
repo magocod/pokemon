@@ -12,7 +12,6 @@ import pytest
 from apps.pokemons.models import Specie
 from apps.pokemons.serializers import SpecieSerializer
 
-
 pytestmark = [pytest.mark.django_db, pytest.mark.app_pokemons, pytest.mark.species]
 
 

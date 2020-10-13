@@ -13,12 +13,11 @@ from apps.pokemons.serializers import CapturedSerializer
 
 from .fixtures import fake_pokemon_catch
 
-
 pytestmark = [
     pytest.mark.django_db,
     pytest.mark.app_pokemons,
     pytest.mark.captured,
-    pytest.mark.captured_list
+    pytest.mark.captured_list,
 ]
 
 
@@ -28,10 +27,7 @@ def test_get_all_pokemon_from_a_user(api_client_user):
     # (party_member, pokemom_storage)
     fake_pokemon_catch(user.id)
 
-    serializer = CapturedSerializer(
-        Captured.objects.filter(user_id=user.id),
-        many=True
-    )
+    serializer = CapturedSerializer(Captured.objects.filter(user_id=user.id), many=True)
     response = api_client.get("/pokemons/own/")
 
     assert response.status_code == 200
@@ -50,7 +46,7 @@ def test_get_all_active_pokemon_of_a_user(api_client_user):
         #     user_id=user.id
         # ),
         query_team,
-        many=True
+        many=True,
     )
     response = api_client.get("/pokemons/own/party/")
 
