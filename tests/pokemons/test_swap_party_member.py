@@ -166,6 +166,7 @@ def test_swap_team_pokemon_and_warehouse(case, expected, api_client_user):
 
     response = api_client.post("/pokemons/own/swap/", case["request"], format="json")
 
+    print(response)
     assert response.status_code == expected["status_code"]
 
     current_team = Captured.objects.filter(is_party_member=True, user_id=user.id)

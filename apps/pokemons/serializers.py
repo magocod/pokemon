@@ -155,7 +155,7 @@ class CapturedCreateSerializer(serializers.Serializer):
             ).count()
             # print(party_member_count)
 
-            if party_member_count <= Captured.active_member_limit():
+            if party_member_count >= Captured.active_member_limit():
                 instance.is_party_member = False
 
         instance.save()
@@ -180,8 +180,8 @@ class SwapPartyMemberSerializer(serializers.Serializer):
     or the pokemon belongs to the user
     """
 
-    entering_the_party = serializers.IntegerField(required=False, allow_null=True)
-    leaving_the_party = serializers.IntegerField(required=False, allow_null=True)
+    entering_the_party = serializers.IntegerField(allow_null=True)
+    leaving_the_party = serializers.IntegerField(allow_null=True)
 
     def validate_entering_the_party(self, value):
         """
