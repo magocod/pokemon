@@ -183,7 +183,6 @@ class SwapPartyMemberSerializer(serializers.Serializer):
     entering_the_party = serializers.IntegerField(required=False, allow_null=True)
     leaving_the_party = serializers.IntegerField(required=False, allow_null=True)
 
-
     def validate_entering_the_party(self, value):
         """
 
@@ -252,8 +251,7 @@ class SwapPartyMemberSerializer(serializers.Serializer):
             if not captured_entering.is_party_member:
                 # check how many active pokémon there are
                 current_team_count = Captured.objects.filter(
-                    is_party_member=True,
-                    user_id=user_id
+                    is_party_member=True, user_id=user_id
                 ).count()
                 if current_team_count < Captured.active_member_limit():
                     captured_entering.is_party_member = True
@@ -263,10 +261,6 @@ class SwapPartyMemberSerializer(serializers.Serializer):
 
         # return the user's current pokemon team, serialized
         serializer_team = CapturedSerializer(
-            Captured.objects.filter(
-                is_party_member=True,
-                user_id=user_id
-            ),
-            many=True
+            Captured.objects.filter(is_party_member=True, user_id=user_id), many=True
         )
         return serializer_team.data

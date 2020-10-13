@@ -10,9 +10,9 @@ import random
 
 import pytest
 
+from apps.pokemons.exceptions import POKEMON_IS_NOT_THE_USER
 from apps.pokemons.models import Captured
 from apps.pokemons.serializers import CapturedBasicSerializer, CapturedEditSerializer
-from apps.pokemons.exceptions import POKEMON_IS_NOT_THE_USER
 
 from .fixtures import fake_pokemon_catch, random_name
 

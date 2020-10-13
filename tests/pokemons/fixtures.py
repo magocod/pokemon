@@ -15,7 +15,7 @@ def random_name(length=10):
     return "".join(random.choice(letters) for i in range(length))
 
 
-def fake_pokemon_catch(user_id: int, active = 3, storage = 3):
+def fake_pokemon_catch(user_id: int, active=3, storage=3):
     """
     add pokemons captures to a user
 
@@ -32,7 +32,7 @@ def fake_pokemon_catch(user_id: int, active = 3, storage = 3):
 
     Returns: [tuple]
         query_team = active pokemon team
-        query_storage = pokemon in storage 
+        query_storage = pokemon in storage
     """
 
     Captured.objects.bulk_create(

@@ -129,8 +129,7 @@ class SwapPartyMember(APIView):
 
     def post(self, request, format=None):
         serializer = SwapPartyMemberSerializer(
-            data=request.data,
-            context={"user_id": request.user.id}
+            data=request.data, context={"user_id": request.user.id}
         )
         if serializer.is_valid():
             result = serializer.save()

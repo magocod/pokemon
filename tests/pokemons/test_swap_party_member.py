@@ -13,9 +13,9 @@ after a while does not understand it
 
 import pytest
 
+from apps.pokemons.exceptions import ACTIVE_POKEMON_LIMIT_REACHED
 from apps.pokemons.models import Captured
 from apps.pokemons.serializers import CapturedSerializer
-from apps.pokemons.exceptions import ACTIVE_POKEMON_LIMIT_REACHED
 
 from .fixtures import fake_pokemon_catch
 
@@ -35,13 +35,13 @@ SWAP_CASES = [
         # case
         {
             # pokemons pm = is_party_member
-            "pokemon_team": 6, # pm -> true -> id: 1 - 6
-            "pokemon_storage": 3, # pm -> false -> id: 7 - 9
+            "pokemon_team": 6,  # pm -> true -> id: 1 - 6
+            "pokemon_storage": 3,  # pm -> false -> id: 7 - 9
             # request
             "request": {
                 "entering_the_party": 7,
                 "leaving_the_party": 5,
-            }
+            },
         },
         # expected
         {
@@ -50,8 +50,8 @@ SWAP_CASES = [
             "pokemon_storage": 3,
             # determine if after consultation the Pokémon in the team or
             # warehouse are expected to change
-            "teams_change": True
-        }
+            "teams_change": True,
+        },
     ),
     # add pokemon from storage to active team
     # has team space
@@ -59,13 +59,13 @@ SWAP_CASES = [
         # case
         {
             # pokemons pm = is_party_member
-            "pokemon_team": 2, # pm -> true -> id: 1 - 2
-            "pokemon_storage": 3, # pm -> false -> id: 3 - 5
+            "pokemon_team": 2,  # pm -> true -> id: 1 - 2
+            "pokemon_storage": 3,  # pm -> false -> id: 3 - 5
             # request
             "request": {
-                "entering_the_party": 4, #
+                "entering_the_party": 4,  #
                 "leaving_the_party": None,
-            }
+            },
         },
         # expected
         {
@@ -74,21 +74,21 @@ SWAP_CASES = [
             "pokemon_storage": 2,
             # determine if after consultation the Pokémon in the team or
             # warehouse are expected to change
-            "teams_change": True
-        }
+            "teams_change": True,
+        },
     ),
     # move pokemon from active team to storage
     (
         # case
         {
             # pokemons pm = is_party_member
-            "pokemon_team": 4, # pm -> true -> id: 1 - 4
-            "pokemon_storage": 2, # pm -> false -> id: 5 - 6
+            "pokemon_team": 4,  # pm -> true -> id: 1 - 4
+            "pokemon_storage": 2,  # pm -> false -> id: 5 - 6
             # request
             "request": {
                 "entering_the_party": None,
                 "leaving_the_party": 2,
-            }
+            },
         },
         # expected
         {
@@ -97,8 +97,8 @@ SWAP_CASES = [
             "pokemon_storage": 3,
             # determine if after consultation the Pokémon in the team or
             # warehouse are expected to change
-            "teams_change": True
-        }
+            "teams_change": True,
+        },
     ),
     # move active pokemon to active pokemon
     # move pokemon from storage to storage
@@ -106,13 +106,13 @@ SWAP_CASES = [
         # case
         {
             # pokemons pm = is_party_member
-            "pokemon_team": 3, # pm -> true -> id: 1 - 3
-            "pokemon_storage": 3, # pm -> false -> id: 4 - 6
+            "pokemon_team": 3,  # pm -> true -> id: 1 - 3
+            "pokemon_storage": 3,  # pm -> false -> id: 4 - 6
             # request
             "request": {
                 "entering_the_party": 1,
                 "leaving_the_party": 4,
-            }
+            },
         },
         # expected
         {
@@ -121,8 +121,8 @@ SWAP_CASES = [
             "pokemon_storage": 3,
             # determine if after consultation the Pokémon in the team or
             # warehouse are expected to change
-            "teams_change": False
-        }
+            "teams_change": False,
+        },
     ),
     # add pokemon on active team, without having space
     # (does not remove one from team first)
@@ -130,13 +130,13 @@ SWAP_CASES = [
         # case
         {
             # pokemons pm = is_party_member
-            "pokemon_team": 6, # pm -> true -> id: 1 - 6
-            "pokemon_storage": 2, # pm -> false -> id: 7 - 8
+            "pokemon_team": 6,  # pm -> true -> id: 1 - 6
+            "pokemon_storage": 2,  # pm -> false -> id: 7 - 8
             # request
             "request": {
                 "entering_the_party": 8,
                 "leaving_the_party": None,
-            }
+            },
         },
         # expected
         {
@@ -145,9 +145,9 @@ SWAP_CASES = [
             "pokemon_storage": 2,
             # determine if after consultation the Pokémon in the team or
             # warehouse are expected to change
-            "teams_change": False
-        }
-    )
+            "teams_change": False,
+        },
+    ),
 ]
 
 
@@ -157,38 +157,24 @@ def test_swap_team_pokemon_and_warehouse(case, expected, api_client_user):
 
     # This test depends on this function, care must be taken when modifying
     query_team, query_storage = fake_pokemon_catch(
-        user.id,
-        active=case["pokemon_team"],
-        storage=case["pokemon_storage"]
+        user.id, active=case["pokemon_team"], storage=case["pokemon_storage"]
     )
 
     # force query evaluation
-    origin_team_id = list(query_team.values_list('id', flat=True))
-    origin_storage_id = list(query_storage.values_list('id', flat=True))
+    origin_team_id = list(query_team.values_list("id", flat=True))
+    origin_storage_id = list(query_storage.values_list("id", flat=True))
 
     response = api_client.post("/pokemons/own/swap/", case["request"], format="json")
 
     assert response.status_code == expected["status_code"]
 
-    current_team = Captured.objects.filter(
-        is_party_member=True,
-        user_id=user.id
-    )
-    current_storage = Captured.objects.filter(
-        is_party_member=False,
-        user_id=user.id
-    )
+    current_team = Captured.objects.filter(is_party_member=True, user_id=user.id)
+    current_storage = Captured.objects.filter(is_party_member=False, user_id=user.id)
 
     if not expected["status_code"] in ERROR_CODES:
         # check active pokemon team
-        current_team = Captured.objects.filter(
-            is_party_member=True,
-            user_id=user.id
-        )
-        serializer = CapturedSerializer(
-            current_team,
-            many=True
-        )
+        current_team = Captured.objects.filter(is_party_member=True, user_id=user.id)
+        serializer = CapturedSerializer(current_team, many=True)
         assert response.data == serializer.data
     else:
         # if the result is an error check error

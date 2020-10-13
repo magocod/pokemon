@@ -1,6 +1,6 @@
 from rest_framework.exceptions import PermissionDenied
-from .models import Captured
 
+from .models import Captured
 
 LIMIT_POKEMON = Captured.active_member_limit()
 
