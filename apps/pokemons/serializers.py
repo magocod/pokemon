@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from apps.pokemons.models import Move, NameStatistic, Specie, Sprite, Statistic, Captured
+from .exceptions import PokemonIsNotTheUser
 
 
 class NameStatisticSerializer(serializers.ModelSerializer):
@@ -178,29 +179,44 @@ class CapturedSerializer(serializers.ModelSerializer):
         )
 
 
-def validate_specie_exists(value):
-    """
-
-    Arguments:
-        value {str | int} -- [description]
-    
-    Raises:
-        ValidationError -- [description]
-    """
-    try:
-        Specie.objects.get(pk=value)
-        return value
-    except Specie.DoesNotExist:
-        raise serializers.ValidationError("species does not exist")
-
-
 class SwapPartyMemberSerializer(serializers.Serializer):
     """
     trade, add, or remove a user's active Pokémon
     """
 
-    entering_the_party = serializers.IntegerField(validators=[validate_specie_exists]) 
-    leaving_the_party = serializers.IntegerField(validators=[validate_specie_exists])
+    entering_the_party = serializers.IntegerField() 
+    leaving_the_party = serializers.IntegerField()
+
+    # def validate_entering_the_party(self, value):
+    #     """
+
+    #     Arguments:
+    #         value {str | int} -- [description]
+        
+    #     Raises:
+    #         ValidationError -- [description]
+    #     """
+    #     try:
+    #         captured = Captured.objects.get(pk=value)
+    #         return value
+    #     except Captured.DoesNotExist:
+    #         raise serializers.ValidationError("species does not exist")
+
+    # def validate_leaving_the_party(self, value):
+    #     """
+
+    #     Arguments:
+    #         value {str | int} -- [description]
+        
+    #     Raises:
+    #         ValidationError -- [description]
+    #     """
+    #     try:
+    #         captured = Captured.objects.get(pk=value)
+    #         if captured 
+    #         return value
+    #     except Captured.DoesNotExist:
+    #         raise serializers.ValidationError("species does not exist")
 
     def create(self, validated_data):
         print(validated_data)

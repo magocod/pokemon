@@ -40,17 +40,34 @@ def create_user(db, django_user_model, test_password):
 def get_or_create_token(db, create_user):
     user = create_user()
     token, _ = Token.objects.get_or_create(user=user)
-    return token
+    return token, user
 
 
 @pytest.fixture
 def api_client():
+    """
+    unauthenticated client
+    """
     return APIClient()
 
 
 @pytest.fixture
 def api_user(get_or_create_token):
-    token = get_or_create_token
+    """
+    authenticated client
+    """
+    token, _ = get_or_create_token
     api_client = APIClient()
     api_client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
     return api_client
+
+
+@pytest.fixture
+def api_client_user(get_or_create_token):
+    """
+    authenticated client and user
+    """
+    token, user = get_or_create_token
+    api_client = APIClient()
+    api_client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+    return api_client, user

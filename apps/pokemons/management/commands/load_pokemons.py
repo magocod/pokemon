@@ -83,6 +83,9 @@ class Command(BaseCommand):
         )
         query_statistic = NameStatistic.objects.all()
 
+        # count = 0
+        # limit = 30
+
         # fix later, so many trips to the bd
         for pokemon_data in data_pokemons:
 
@@ -141,3 +144,8 @@ class Command(BaseCommand):
                 )
                 for dict_st in pokemon_data["stats"]
             )
+
+            # forced to speed up testing
+            # count = count + 1
+            # if count == limit:
+            #     break
