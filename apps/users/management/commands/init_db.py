@@ -7,6 +7,9 @@ class Command(BaseCommand):
     ...
     """
 
+    # def add_arguments(self, parser):
+    #     parser.add_argument("-l", "--lazy", type=bool, default=False)
+
     def handle(self, *args, **options):
         """
         ...
