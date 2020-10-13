@@ -9,7 +9,7 @@ from apps.pokemons.models import (
     Statistic,
 )
 
-from .exceptions import PokemonIsNotTheUser
+from .exceptions import ActivePokemonLimitReached
 
 
 class NameStatisticSerializer(serializers.ModelSerializer):
@@ -155,7 +155,7 @@ class CapturedCreateSerializer(serializers.Serializer):
             ).count()
             # print(party_member_count)
 
-            if party_member_count >= Captured.active_member_limit():
+            if party_member_count <= Captured.active_member_limit():
                 instance.is_party_member = False
 
         instance.save()
@@ -175,42 +175,98 @@ class CapturedSerializer(serializers.ModelSerializer):
 class SwapPartyMemberSerializer(serializers.Serializer):
     """
     trade, add, or remove a user's active Pokémon
+
+    Before making an exchange check if it exists
+    or the pokemon belongs to the user
     """
 
-    entering_the_party = serializers.IntegerField()
-    leaving_the_party = serializers.IntegerField()
+    entering_the_party = serializers.IntegerField(required=False, allow_null=True)
+    leaving_the_party = serializers.IntegerField(required=False, allow_null=True)
 
-    # def validate_entering_the_party(self, value):
-    #     """
 
-    #     Arguments:
-    #         value {str | int} -- [description]
+    def validate_entering_the_party(self, value):
+        """
 
-    #     Raises:
-    #         ValidationError -- [description]
-    #     """
-    #     try:
-    #         captured = Captured.objects.get(pk=value)
-    #         return value
-    #     except Captured.DoesNotExist:
-    #         raise serializers.ValidationError("species does not exist")
+        Arguments:
+            value {[type]} -- [description]
 
-    # def validate_leaving_the_party(self, value):
-    #     """
+        Returns:
+            [tuple] -- [value, captured]
 
-    #     Arguments:
-    #         value {str | int} -- [description]
+        Raises:
+            serializers -- [description]
+        """
+        if value is None:
+            return value
+        try:
+            captured = Captured.objects.get(pk=value)
+        except Captured.DoesNotExist:
+            raise serializers.ValidationError("pokemon to exchange does not exist")
 
-    #     Raises:
-    #         ValidationError -- [description]
-    #     """
-    #     try:
-    #         captured = Captured.objects.get(pk=value)
-    #         if captured
-    #         return value
-    #     except Captured.DoesNotExist:
-    #         raise serializers.ValidationError("species does not exist")
+        user_id: int = self.context["user_id"]
+        if captured.user_id != user_id:
+            raise serializers.ValidationError("this pokemon is not in user storage")
+
+        return value, captured
+
+    def validate_leaving_the_party(self, value):
+        """
+
+        Arguments:
+            value {int | str} -- [description]
+
+        Returns:
+            [tuple] -- [value, captured]
+
+        Raises:
+            serializers -- [description]
+        """
+        if value is None:
+            return value
+        try:
+            captured = Captured.objects.get(pk=value)
+        except Captured.DoesNotExist:
+            raise serializers.ValidationError("pokemon to exchange does not exist")
+
+        user_id: int = self.context["user_id"]
+        if captured.user_id != user_id:
+            raise serializers.ValidationError("this pokemon is not in user storage")
+
+        return value, captured
 
     def create(self, validated_data):
-        print(validated_data)
-        return validated_data
+        user_id: int = self.context["user_id"]
+
+        if validated_data["leaving_the_party"] is not None:
+            _, captured_leaving = validated_data["leaving_the_party"]
+            # print("leaving", _, captured_leaving)
+
+            if captured_leaving.is_party_member:
+                captured_leaving.is_party_member = False
+                captured_leaving.save()
+
+        if validated_data["entering_the_party"] is not None:
+            _, captured_entering = validated_data["entering_the_party"]
+            # print("entering", _, captured_entering)
+
+            if not captured_entering.is_party_member:
+                # check how many active pokémon there are
+                current_team_count = Captured.objects.filter(
+                    is_party_member=True,
+                    user_id=user_id
+                ).count()
+                if current_team_count < Captured.active_member_limit():
+                    captured_entering.is_party_member = True
+                    captured_entering.save()
+                else:
+                    raise ActivePokemonLimitReached
+
+        # return the user's current pokemon team, serialized
+        serializer_team = CapturedSerializer(
+            Captured.objects.filter(
+                is_party_member=True,
+                user_id=user_id
+            ),
+            many=True
+        )
+        return serializer_team.data

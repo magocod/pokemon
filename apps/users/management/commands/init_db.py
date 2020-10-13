@@ -14,7 +14,7 @@ class Command(BaseCommand):
         """
         ...
         """
-        print("init_users...")
+        # print("init_users...")
         call_command("init_users")
 
         # should be called in this order

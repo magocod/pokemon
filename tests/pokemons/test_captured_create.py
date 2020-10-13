@@ -1,7 +1,7 @@
 """
-These tests rely on the (load_regions) command to get data
+These tests rely on the (load_pokemons) command to get data
 
-call_command("load_regions")
+call_command("load_pokemons")
 
 Note: future versions will adjust these conditions
 """
@@ -9,7 +9,7 @@ Note: future versions will adjust these conditions
 import pytest
 
 from apps.pokemons.models import Captured
-from apps.pokemons.serializers import CapturedBasicSerializer
+from apps.pokemons.serializers import CapturedBasicSerializer, CapturedCreateSerializer
 
 from .fixtures import pokemon_team_full_charge, random_name
 
@@ -102,7 +102,7 @@ def test_validate_form_to_capture_pokemon(api_client_user):
         "nick_name": True,
         "is_party_member": 3000,
     }
-    serializer = CapturedBasicSerializer(data=request_data)
+    serializer = CapturedCreateSerializer(data=request_data)
 
     captured_count = Captured.objects.count()
     response = api_client.post("/pokemons/own/", request_data, format="json")
@@ -110,9 +110,9 @@ def test_validate_form_to_capture_pokemon(api_client_user):
     assert response.status_code == 400
 
     assert not serializer.is_valid()
-    assert "specie" in response.data
-    assert "nick_name" in response.data
-    assert "is_party_member" in response.data
+    assert response.data["specie"] == serializer.errors["specie"]
+    assert response.data["nick_name"] == serializer.errors["nick_name"]
+    assert response.data["is_party_member"] == serializer.errors["is_party_member"]
 
     assert captured_count == Captured.objects.count()
 
@@ -125,7 +125,7 @@ def test_validate_pokemon_to_capture_exists(api_client_user):
         "nick_name": random_name(),
         "is_party_member": True,
     }
-    serializer = CapturedBasicSerializer(data=request_data)
+    serializer = CapturedCreateSerializer(data=request_data)
 
     captured_count = Captured.objects.count()
     response = api_client.post("/pokemons/own/", request_data, format="json")
@@ -133,6 +133,6 @@ def test_validate_pokemon_to_capture_exists(api_client_user):
     assert response.status_code == 400
 
     assert not serializer.is_valid()
-    assert "specie" in response.data
+    assert response.data["specie"] == serializer.errors["specie"]
 
     assert captured_count == Captured.objects.count()

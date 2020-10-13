@@ -1,7 +1,7 @@
 """
-These tests rely on the (load_regions) command to get data
+These tests rely on the (load_pokemons) command to get data
 
-call_command("load_regions")
+call_command("load_pokemons")
 
 Note: future versions will adjust these conditions
 """
@@ -12,6 +12,7 @@ import pytest
 
 from apps.pokemons.models import Captured
 from apps.pokemons.serializers import CapturedBasicSerializer, CapturedEditSerializer
+from apps.pokemons.exceptions import POKEMON_IS_NOT_THE_USER
 
 from .fixtures import fake_pokemon_catch, random_name
 
@@ -82,7 +83,7 @@ def test_validate_form_change_nickname_of_captured_pokemon(api_client_user):
     assert response.status_code == 400
 
     assert not serializer.is_valid()
-    assert "nick_name" in response.data
+    assert response.data["nick_name"][0] == "Not a valid string."
     assert old_nick_name == captured.nick_name
 
 
@@ -108,7 +109,7 @@ def test_prohibit_editing_the_nickname_of_pokemon_if_it_is_not_the_user(
     captured = Captured.objects.get(id=captured.id)
 
     assert response.status_code == 403
-    # assert response.data ==
+    assert response.data["detail"] == POKEMON_IS_NOT_THE_USER
     assert nick_name == captured.nick_name
 
 
@@ -122,7 +123,7 @@ def test_pokemon_not_found_to_edit_nickname(api_user):
 
 def test_release_pokemon(api_client_user):
     api_client, user = api_client_user
-    query_team, _ = fake_pokemon_catch(user.id, 1)
+    query_team, _ = fake_pokemon_catch(user.id, active=1, storage=1)
     captured_id = query_team[0].id
 
     user_pokemons_count = Captured.objects.filter(user_id=user.id).count()
@@ -136,7 +137,7 @@ def test_release_pokemon(api_client_user):
 def test_pokemon_not_found_to_release(api_client_user):
     api_client, user = api_client_user
 
-    fake_pokemon_catch(user.id, 1)
+    fake_pokemon_catch(user.id, active=1, storage=1)
     user_pokemons_count = Captured.objects.filter(user_id=user.id).count()
 
     response = api_client.delete(f"/pokemons/own/{1000000000000000}/")
@@ -160,4 +161,5 @@ def test_forbidden_to_release_pokemon_other_than_the_user(api_client_user, creat
     response = api_client.delete(f"/pokemons/own/{captured.id}/")
 
     assert response.status_code == 403
+    assert response.data["detail"] == POKEMON_IS_NOT_THE_USER
     assert pokemons_count == Captured.objects.filter(user_id=other_user.id).count()

@@ -1,7 +1,7 @@
 """
-These tests rely on the (load_regions) command to get data
+These tests rely on the (load_pokemons) command to get data
 
-call_command("load_regions")
+call_command("load_pokemons")
 
 Note: future versions will adjust these conditions
 """
