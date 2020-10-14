@@ -5,13 +5,7 @@ from django.db import models
 
 # Repeated code in models, fix once API tests are done
 
-STATE_MODIFICER = {
-    "sleep": 20,
-    "freeze": 20,
-    "paralyze": 5,
-    "sleep": 5,
-    "poison": 5
-}
+STATE_MODIFICER = {"sleep": 20, "freeze": 20, "paralyze": 5, "burn": 5, "poison": 5}
 
 
 class Ability(models.Model):
@@ -65,7 +59,7 @@ class Specie(models.Model):
     def __str__(self):
         return self.name
 
-    def catch_percentage(self, current_hp = 0) -> int:
+    def catch_percentage(self, current_hp=0) -> int:
         """
         Capture Method (Generation II):
 
@@ -91,14 +85,14 @@ class Specie(models.Model):
 
         try:
             max_hp = self.stats.get(name__name="hp").value
-        except:
+        except Exception:
             return 0
 
         if current_hp <= 0 or current_hp > max_hp:
             current_hp = max_hp
 
         dividend = ((3 * max_hp) - (2 * current_hp)) * capture_rate
-        divider = (3 * max_hp) # state modifier not applied
+        divider = 3 * max_hp  # state modifier not applied
 
         omega = dividend / divider
         return omega
@@ -180,12 +174,12 @@ class Captured(models.Model):
 
     def start_capture(self) -> bool:
         """
-        
-        Note: 
+
+        Note:
         that choosing the name of this method calls
         into question renaming this model, which does
         not allow for correct semantics
-        
+
         Capture.start_capture()
         Capture.capture()
 
@@ -197,5 +191,5 @@ class Captured(models.Model):
         try:
             percent = self.specie.catch_percentage()
             return random.randrange(100) < percent
-        except:
+        except Exception:
             return False

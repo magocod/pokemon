@@ -154,7 +154,7 @@ SWAP_CASES = [
 ]
 
 
-if not settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+if not settings.DATABASES["default"]["ENGINE"] == "django.db.backends.sqlite3":
     pytest.skip("skipping windows-only tests", allow_module_level=True)
 
 

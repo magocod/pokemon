@@ -8,9 +8,7 @@ from unittest import mock
 
 import pytest
 
-from django.contrib.auth.models import User
-
-from apps.pokemons.models import Specie, NameStatistic, Statistic
+from apps.pokemons.models import NameStatistic, Specie, Statistic
 
 from .fixtures import random_name
 
@@ -24,13 +22,13 @@ pytestmark = [
 
 def false_percentage(cls, *args, **kwargs):
     """
-    
+
     always capture
-    
+
     Arguments:
         *args {[type]} -- [description]
         **kwargs {[type]} -- [description]
-    
+
     Returns:
         number -- [description]
     """
@@ -63,6 +61,6 @@ def test_get_percentage_of_catching_a_pokemon():
     # pokemon = fake_pokemon()
     # print(pokemon, pokemon.catch_percentage())
 
-    with mock.patch.object(Specie, 'catch_percentage', new=false_percentage):
+    with mock.patch.object(Specie, "catch_percentage", new=false_percentage):
         pokemon = fake_pokemon()
         assert 100 == pokemon.catch_percentage()
