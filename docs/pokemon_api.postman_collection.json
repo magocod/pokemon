@@ -1,0 +1,1719 @@
+{
+	"info": {
+		"_postman_id": "c90404f1-926f-47da-b0e9-756c77c59eb2",
+		"name": "pokemon_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pokemons",
+			"item": [
+				{
+					"name": "own",
+					"item": [
+						{
+							"name": "Pokemon catch",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"specie\": \"1\",\r\n    \"nick_name\": \"Pedro\",\r\n    \"is_party_member\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Pokemon catch",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"specie\": \"1\",\r\n    \"nick_name\": \"Pedro\",\r\n    \"is_party_member\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 19:06:10 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "63"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 41,\n    \"nick_name\": \"Pedro\",\n    \"is_party_member\": true,\n    \"specie\": 1\n}"
+								}
+							]
+						},
+						{
+							"name": "Pokemon rename",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nick_name\": \"Timmy v3\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										"1",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "PokemonIsNotTheUser",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nick_name\": \"Timmy v3\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/5/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												"5",
+												""
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 21:42:24 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "PUT, PATCH, DELETE, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"detail\": \"this pokemon is not in user storage\"\n}"
+								},
+								{
+									"name": "Pokemon rename",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nick_name\": \"Timmy\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/1/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												"1",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 19:59:08 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "PUT, DELETE, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "62"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"nick_name\": \"Timmy\",\n    \"is_party_member\": true,\n    \"specie\": 1\n}"
+								}
+							]
+						},
+						{
+							"name": "Pokemon Storage",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Pokemon Storage",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 19:25:40 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, POST, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2386"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 41,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 42,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 43,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 44,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": false,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Pokemon party",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/party/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										"party",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Pokemon party",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/party/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												"party",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 19:30:23 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "GET, HEAD, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1789"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 41,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 42,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 43,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "Pokemon rename",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nick_name\": \"timmy v2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/2/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										"2",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Pokemon rename",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nick_name\": \"timmy v2\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/1/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												"1",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 20:45:31 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "PUT, PATCH, DELETE, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "65"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"nick_name\": \"timmy v2\",\n    \"is_party_member\": true,\n    \"specie\": 1\n}"
+								}
+							]
+						},
+						{
+							"name": "Pokemon release",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										"1",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Pokemon release",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/1/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												"1",
+												""
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 12 Oct 2020 21:54:28 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "PUT, DELETE, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "own_swap",
+					"item": [
+						{
+							"name": "Swap party member",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{auth_key}} {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"entering_the_party\": 1,\r\n    \"leaving_the_party\": 8\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/own/swap/\n",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"own",
+										"swap",
+										"\n"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Swap party member",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{auth_key}} {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"entering_the_party\": 1,\r\n    \"leaving_the_party\": 8\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:8000/pokemons/own/swap/\n",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "8000",
+											"path": [
+												"pokemons",
+												"own",
+												"swap",
+												"\n"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Tue, 13 Oct 2020 22:39:40 GMT"
+										},
+										{
+											"key": "Server",
+											"value": "WSGIServer/0.2 CPython/3.7.7"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept, Origin"
+										},
+										{
+											"key": "Allow",
+											"value": "POST, OPTIONS"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "DENY"
+										},
+										{
+											"key": "Content-Length",
+											"value": "2971"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "same-origin"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 1,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 1,\n            \"name\": \"Bulbasaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/1.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 9,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 2,\n            \"name\": \"Ivysaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 10,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 2,\n            \"name\": \"Ivysaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 11,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 2,\n            \"name\": \"Ivysaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    },\n    {\n        \"id\": 12,\n        \"nick_name\": \"Pedro\",\n        \"is_party_member\": true,\n        \"specie\": {\n            \"id\": 2,\n            \"name\": \"Ivysaur\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png\",\n                \"front_shiny_female\": null\n            }\n        }\n    }\n]"
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Pokemon specie detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/pokemons/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"pokemons",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Pokemon specie detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/pokemons/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"pokemons",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 12 Oct 2020 12:35:32 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1886"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"capture_rate\": 45,\n    \"color\": \"green\",\n    \"flavor_text\": \"There is a bud on this Pokémon’s back. To support its weight,\\nIvysaur’s legs and trunk grow thick and strong.\\nIf it starts spending more time lying in the sunlight,\\nit’s a sign that the bud will bloom into a large flower soon.\",\n    \"height\": 10,\n    \"name\": \"Ivysaur\",\n    \"weight\": 130,\n    \"stats\": [\n        {\n            \"name\": \"speed\",\n            \"value\": 60\n        },\n        {\n            \"name\": \"special-defense\",\n            \"value\": 80\n        },\n        {\n            \"name\": \"special-attack\",\n            \"value\": 80\n        },\n        {\n            \"name\": \"defense\",\n            \"value\": 63\n        },\n        {\n            \"name\": \"attack\",\n            \"value\": 62\n        },\n        {\n            \"name\": \"hp\",\n            \"value\": 60\n        }\n    ],\n    \"sprites\": {\n        \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/2.png\",\n        \"back_female\": null,\n        \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/2.png\",\n        \"back_shiny_female\": null,\n        \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png\",\n        \"front_female\": null,\n        \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png\",\n        \"front_shiny_female\": null\n    },\n    \"moves\": [\n        \"captivate\",\n        \"knock-off\",\n        \"rest\",\n        \"fury-cutter\",\n        \"swagger\",\n        \"energy-ball\",\n        \"poison-powder\",\n        \"take-down\",\n        \"double-edge\",\n        \"leech-seed\",\n        \"body-slam\",\n        \"confide\",\n        \"defense-curl\",\n        \"attract\",\n        \"substitute\",\n        \"worry-seed\",\n        \"facade\",\n        \"sunny-day\",\n        \"sludge-bomb\",\n        \"synthesis\",\n        \"strength\",\n        \"solar-beam\",\n        \"vine-whip\",\n        \"bind\",\n        \"endure\",\n        \"swords-dance\",\n        \"frustration\",\n        \"sleep-talk\",\n        \"secret-power\",\n        \"nature-power\",\n        \"growl\",\n        \"mud-slap\",\n        \"headbutt\",\n        \"protect\",\n        \"mega-drain\",\n        \"safeguard\",\n        \"seed-bomb\",\n        \"reflect\",\n        \"return\",\n        \"mimic\",\n        \"hidden-power\",\n        \"toxic\",\n        \"rage\",\n        \"cut\",\n        \"flash\",\n        \"growth\",\n        \"curse\",\n        \"sleep-powder\",\n        \"natural-gift\",\n        \"venoshock\",\n        \"string-shot\",\n        \"round\",\n        \"light-screen\",\n        \"bide\",\n        \"tackle\",\n        \"sweet-scent\",\n        \"bullet-seed\",\n        \"grass-knot\",\n        \"razor-leaf\",\n        \"grass-pledge\",\n        \"giga-drain\",\n        \"echoed-voice\",\n        \"snore\",\n        \"rock-smash\",\n        \"double-team\",\n        \"work-up\"\n    ],\n    \"abilities\": [\n        \"overgrow\",\n        \"chlorophyll\"\n    ],\n    \"types\": [\n        \"poison\",\n        \"grass\"\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "regions",
+			"item": [
+				{
+					"name": "Regions list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/regions",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"regions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Regions list",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/regions",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"regions"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 12 Oct 2020 12:54:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "170"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"kanto\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"johto\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"hoenn\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"sinnoh\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"unova\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"kalos\"\n    },\n    {\n        \"id\": 7,\n        \"name\": \"alola\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Region detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/regions/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"regions",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Region detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/regions/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"regions",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 12 Oct 2020 15:32:27 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2862"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"kanto\",\n    \"locations\": [\n        {\n            \"id\": 1,\n            \"name\": \"celadon-city\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"cerulean-city\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"cinnabar-island\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"digletts-cave\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"fuchsia-city\"\n        },\n        {\n            \"id\": 6,\n            \"name\": \"mt-moon\"\n        },\n        {\n            \"id\": 7,\n            \"name\": \"pallet-town\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"rock-tunnel\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"kanto-route-1\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"kanto-route-10\"\n        },\n        {\n            \"id\": 11,\n            \"name\": \"kanto-route-11\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"kanto-route-12\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"kanto-route-13\"\n        },\n        {\n            \"id\": 14,\n            \"name\": \"kanto-route-14\"\n        },\n        {\n            \"id\": 15,\n            \"name\": \"kanto-route-15\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"kanto-route-16\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"kanto-route-17\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"kanto-route-18\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"kanto-sea-route-19\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"kanto-route-2\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"kanto-sea-route-20\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"kanto-sea-route-21\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"kanto-route-22\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"kanto-route-24\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"kanto-route-25\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"kanto-route-26\"\n        },\n        {\n            \"id\": 27,\n            \"name\": \"kanto-route-27\"\n        },\n        {\n            \"id\": 28,\n            \"name\": \"kanto-route-28\"\n        },\n        {\n            \"id\": 29,\n            \"name\": \"kanto-route-3\"\n        },\n        {\n            \"id\": 30,\n            \"name\": \"kanto-route-4\"\n        },\n        {\n            \"id\": 31,\n            \"name\": \"kanto-route-5\"\n        },\n        {\n            \"id\": 32,\n            \"name\": \"kanto-route-6\"\n        },\n        {\n            \"id\": 33,\n            \"name\": \"kanto-route-7\"\n        },\n        {\n            \"id\": 34,\n            \"name\": \"kanto-route-8\"\n        },\n        {\n            \"id\": 35,\n            \"name\": \"kanto-route-9\"\n        },\n        {\n            \"id\": 36,\n            \"name\": \"seafoam-islands\"\n        },\n        {\n            \"id\": 37,\n            \"name\": \"cerulean-cave\"\n        },\n        {\n            \"id\": 38,\n            \"name\": \"vermilion-city\"\n        },\n        {\n            \"id\": 39,\n            \"name\": \"kanto-victory-road-1\"\n        },\n        {\n            \"id\": 40,\n            \"name\": \"viridian-city\"\n        },\n        {\n            \"id\": 41,\n            \"name\": \"viridian-forest\"\n        },\n        {\n            \"id\": 42,\n            \"name\": \"kanto-route-23\"\n        },\n        {\n            \"id\": 43,\n            \"name\": \"power-plant\"\n        },\n        {\n            \"id\": 44,\n            \"name\": \"kanto-victory-road-2\"\n        },\n        {\n            \"id\": 45,\n            \"name\": \"pokemon-tower\"\n        },\n        {\n            \"id\": 46,\n            \"name\": \"pokemon-mansion\"\n        },\n        {\n            \"id\": 47,\n            \"name\": \"kanto-safari-zone\"\n        },\n        {\n            \"id\": 48,\n            \"name\": \"pewter-city\"\n        },\n        {\n            \"id\": 49,\n            \"name\": \"lavender-town\"\n        },\n        {\n            \"id\": 50,\n            \"name\": \"indigo-plateau\"\n        },\n        {\n            \"id\": 51,\n            \"name\": \"saffron-city\"\n        },\n        {\n            \"id\": 52,\n            \"name\": \"monean-chamber\"\n        },\n        {\n            \"id\": 53,\n            \"name\": \"liptoo-chamber\"\n        },\n        {\n            \"id\": 54,\n            \"name\": \"weepth-chamber\"\n        },\n        {\n            \"id\": 55,\n            \"name\": \"dilford-chamber\"\n        },\n        {\n            \"id\": 56,\n            \"name\": \"scufib-chamber\"\n        },\n        {\n            \"id\": 57,\n            \"name\": \"rixy-chamber\"\n        },\n        {\n            \"id\": 58,\n            \"name\": \"viapos-chamber\"\n        },\n        {\n            \"id\": 59,\n            \"name\": \"ss-anne\"\n        },\n        {\n            \"id\": 60,\n            \"name\": \"mt-ember\"\n        },\n        {\n            \"id\": 61,\n            \"name\": \"berry-forest\"\n        },\n        {\n            \"id\": 62,\n            \"name\": \"icefall-cave\"\n        },\n        {\n            \"id\": 63,\n            \"name\": \"pattern-bush\"\n        },\n        {\n            \"id\": 64,\n            \"name\": \"lost-cave\"\n        },\n        {\n            \"id\": 65,\n            \"name\": \"kindle-road\"\n        },\n        {\n            \"id\": 66,\n            \"name\": \"treasure-beach\"\n        },\n        {\n            \"id\": 67,\n            \"name\": \"cape-brink\"\n        },\n        {\n            \"id\": 68,\n            \"name\": \"bond-bridge\"\n        },\n        {\n            \"id\": 69,\n            \"name\": \"three-isle-port\"\n        },\n        {\n            \"id\": 70,\n            \"name\": \"resort-gorgeous\"\n        },\n        {\n            \"id\": 71,\n            \"name\": \"water-labyrinth\"\n        },\n        {\n            \"id\": 72,\n            \"name\": \"five-isle-meadow\"\n        },\n        {\n            \"id\": 73,\n            \"name\": \"memorial-pillar\"\n        },\n        {\n            \"id\": 74,\n            \"name\": \"outcast-island\"\n        },\n        {\n            \"id\": 75,\n            \"name\": \"green-path\"\n        },\n        {\n            \"id\": 76,\n            \"name\": \"water-path\"\n        },\n        {\n            \"id\": 77,\n            \"name\": \"ruin-valley\"\n        },\n        {\n            \"id\": 78,\n            \"name\": \"trainer-tower\"\n        },\n        {\n            \"id\": 79,\n            \"name\": \"canyon-entrance\"\n        },\n        {\n            \"id\": 80,\n            \"name\": \"sevault-canyon\"\n        },\n        {\n            \"id\": 81,\n            \"name\": \"tanoby-ruins\"\n        },\n        {\n            \"id\": 82,\n            \"name\": \"one-island\"\n        },\n        {\n            \"id\": 83,\n            \"name\": \"four-island\"\n        },\n        {\n            \"id\": 84,\n            \"name\": \"five-island\"\n        },\n        {\n            \"id\": 85,\n            \"name\": \"kanto-altering-cave\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/regions/100000",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"regions",
+										"100000"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 12 Oct 2020 15:34:08 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "23"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Not found.\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "locations",
+			"item": [
+				{
+					"name": "Location detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/location/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"location",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Location detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/location/1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"location",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Tue, 13 Oct 2020 00:02:19 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"celadon-city\",\n    \"region\": 1,\n    \"areas\": [\n        {\n            \"id\": 240,\n            \"name\": \"celadon-city-area\",\n            \"location\": 1,\n            \"pokemon_count\": 9\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "areas",
+			"item": [
+				{
+					"name": "Area detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/areas/360",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"areas",
+								"360"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Area detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/areas/360",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"areas",
+										"360"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 12 Oct 2020 16:13:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.7.7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2065"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 360,\n    \"name\": \"hoenn-route-112-area\",\n    \"location\": 181,\n    \"pokemon_count\": 3,\n    \"pokemons\": [\n        {\n            \"id\": 66,\n            \"name\": \"Machop\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/66.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/66.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/66.png\",\n                \"front_shiny_female\": null\n            }\n        },\n        {\n            \"id\": 183,\n            \"name\": \"Marill\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/183.png\",\n                \"back_female\": null,\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/183.png\",\n                \"back_shiny_female\": null,\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/183.png\",\n                \"front_female\": null,\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/183.png\",\n                \"front_shiny_female\": null\n            }\n        },\n        {\n            \"id\": 322,\n            \"name\": \"Numel\",\n            \"sprites\": {\n                \"back_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/322.png\",\n                \"back_female\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/female/322.png\",\n                \"back_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/322.png\",\n                \"back_shiny_female\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/female/322.png\",\n                \"front_default\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/322.png\",\n                \"front_female\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/female/322.png\",\n                \"front_shiny\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/322.png\",\n                \"front_shiny_female\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/female/322.png\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"pedro\",\r\n    \"password\": \"strong_password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"pedro\",\r\n    \"password\": \"strong_password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 12 Oct 2020 10:56:49 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.7.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": \"8d5faa1fe98d73735dac4b6cd57d36ec4c3f6a99\"\n}"
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth_key}} {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/logout/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"logout",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "invalid token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_key}} {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/logout/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"logout",
+								""
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 12 Oct 2020 17:10:34 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.7.7"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "WWW-Authenticate",
+							"value": "Token"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"detail\": \"Invalid token.\"\n}"
+				},
+				{
+					"name": "logout",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth_key}} {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/logout/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"logout",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 12 Oct 2020 17:09:56 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.7.7"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Origin"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}
