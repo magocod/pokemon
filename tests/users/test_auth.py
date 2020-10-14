@@ -1,16 +1,12 @@
 import uuid
 
 import pytest
-
 from rest_framework.authtoken.models import Token
 
 pytestmark = [pytest.mark.django_db, pytest.mark.app_users, pytest.mark.auth]
 
 
-request_data = {
-    "username": uuid.uuid4(),
-    "password": "code_number"
-}
+request_data = {"username": uuid.uuid4(), "password": "code_number"}
 
 
 def test_user_login(api_client, django_user_model):
@@ -27,16 +23,16 @@ def test_user_login(api_client, django_user_model):
 
 def test_user_login_incorrect_password(api_client, django_user_model):
 
-    user = django_user_model.objects.create_user(**request_data)
+    django_user_model.objects.create_user(**request_data)
 
-    invalid_request = {
-        "username": uuid.uuid4(),
-        "password": "invalid"
-    }
+    invalid_request = {"username": uuid.uuid4(), "password": "invalid"}
     response = api_client.post("/login/", invalid_request, format="json")
 
     assert response.status_code == 400
-    assert response.data["non_field_errors"][0] == "Unable to log in with provided credentials."
+    assert (
+        response.data["non_field_errors"][0]
+        == "Unable to log in with provided credentials."
+    )
 
 
 def test_user_login_without_providing_credentials(api_client):
