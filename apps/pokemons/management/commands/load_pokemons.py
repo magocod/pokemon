@@ -75,11 +75,11 @@ class Command(BaseCommand):
         Move.objects.bulk_create(Move(name=name) for name in tuple(pokemon_moves))
         query_moves = Move.objects.all()
 
-        Type.objects.bulk_create(Move(name=name) for name in tuple(pokemon_types))
+        Type.objects.bulk_create(Type(name=name) for name in tuple(pokemon_types))
         query_types = Type.objects.all()
 
         NameStatistic.objects.bulk_create(
-            Move(name=name) for name in tuple(pokemon_stats)
+            NameStatistic(name=name) for name in tuple(pokemon_stats)
         )
         query_statistic = NameStatistic.objects.all()
 
